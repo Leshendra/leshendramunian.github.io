@@ -13,304 +13,501 @@
         body {
             font-family: 'Inter', sans-serif;
         }
-        /* Smooth scrolling for anchor links */
+        
+        /* Smooth scrolling for anchor links (fallback) */
         html {
             scroll-behavior: smooth;
         }
-        /* Simple animation for section fade-in (optional but nice) */
-        .section-fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.6s ease-out forwards;
+
+        /* Set a minimum height for pages to fill the viewport */
+        .page {
+            min-height: calc(100vh - 160px); /* 100vh minus nav and footer height */
+        }
+
+        /* Simple animation for page fade-in */
+        .page-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
         }
         @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
+        /* Style for the active navigation link */
+        .nav-link.active {
+            color: #4F46E5; /* text-indigo-600 */
+            font-weight: 600;
+            border-bottom: 2px solid #4F46E5;
+            padding-bottom: 4px;
+        }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-900 antialiased">
+<body class="bg-gray-200 text-gray-900 antialiased">
 
     <!-- Header & Navigation Bar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+    <nav class="bg-gray-50 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
             <!-- Your Name / Logo -->
-            <a href="#home" class="text-2xl font-bold text-indigo-600">Leshendra Munian</a>
+            <a href="#" data-page="home" class="nav-brand text-2xl font-bold text-indigo-600 mb-4 sm:mb-0">Leshendra Munian</a>
             
             <!-- Navigation Links -->
-            <!-- On mobile, these will wrap. For a full mobile menu, a bit of JavaScript would be needed. -->
-            <div class="space-x-4 text-gray-700 font-medium">
-                <a href="#about" class="hover:text-indigo-600 transition duration-300">About</a>
-                <a href="#experience" class="hover:text-indigo-600 transition duration-300">Experience</a>
-                <a href="#projects" class="hover:text-indigo-600 transition duration-300">Projects</a>
-                <a href="#skills" class="hover:text-indigo-600 transition duration-300">Skills</a>
-                <a href="#contact" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition duration-300">Contact</a>
+            <div id="nav-links" class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 md:space-x-4 text-gray-700 font-medium">
+                <a href="#" data-page="home" class="nav-link hover:text-indigo-600 transition duration-300 px-2">Home</a>
+                <a href="#" data-page="about" class="nav-link hover:text-indigo-600 transition duration-300 px-2">About</a>
+                <a href="#" data-page="experience" class="nav-link hover:text-indigo-600 transition duration-300 px-2">Experience</a>
+                <a href="#" data-page="projects" class="nav-link hover:text-indigo-600 transition duration-300 px-2">Projects</a>
+                <a href="#" data-page="skills" class="nav-link hover:text-indigo-600 transition duration-300 px-2">Skills</a>
+                <!-- 
+                  CHANGE: 
+                  - Removed button styling (bg-indigo-600, text-white, etc.)
+                  - Added 'nav-link' styling to match the other links.
+                  - ADDED text-indigo-600, font-semibold, and hover:text-indigo-700
+                -->
+                <a href="#" data-page="contact" class="nav-link text-indigo-600 font-semibold hover:text-indigo-700 transition duration-300 px-2">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header id="home" class="min-h-screen flex items-center bg-white py-20 lg:py-0">
-        <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between">
-            <!-- Left Side: Text Content -->
-            <div class="lg:w-1/2 mb-12 lg:mb-0">
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 text-gray-900">Leshendra Tony Munian</h1>
-                <p class="text-2xl text-indigo-600 mb-8 font-medium">Final-Year Electrical & Electronic Engineering Student</p>
+    <!-- Main Content Area -->
+    <!-- All "pages" are here. JS will show/hide them. -->
+    <main>
+
+        <!-- Page: Home (Hero Section) -->
+        <section id="home" class="page page-fade-in">
+            <!-- Hero Content -->
+            <div class="hero-content bg-gray-50 flex items-center min-h-[80vh] py-20 lg:py-0">
+                <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between">
+                    <!-- Left Side: Text Content -->
+                    <div class="lg:w-1/2 mb-12 lg:mb-0">
+                        <h1 class="text-5xl md:text-7xl font-bold mb-4 text-gray-900">Leshendra Tony Munian</h1>
+                        <p class="text-2xl text-indigo-600 mb-8 font-medium">Final-Year Electrical & Electronic Engineering Student</p>
+                    
+                        <!-- NEW: Added small description back -->
+                        <p class="text-lg text-gray-700 max-w-xl leading-relaxed">
+                            I am a motivated and detail-oriented final-year Electrical and Electronic Engineering student with a strong foundation in power systems, circuit design, and control theory. I am known for being passionate, disciplined, and enthusiastic, with a strong commitment to delivering high-quality work.
+                        </p>
+                    </div>
                 
-                <!-- Contact Info Icons -->
-                <div class="space-y-3 mb-10">
-                    <div class="flex items-center text-gray-700">
-                        <!-- Email Icon -->
-                        <svg class="w-5 h-5 mr-3 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-                        <a href="mailto:leshenmunian@gmail.com" class="hover:text-indigo-600">leshenmunian@gmail.com</a>
+                    <!-- Right Side: Placeholder Image -->
+                    <div class="lg:w-1/2 flex justify-center">
+                        <!-- 
+                          HOW TO ADD YOUR PHOTO:
+                          1. Get your photo file (e.g., "my-photo.jpg").
+                          2. Upload it to the same place you put this index.html file.
+                          3. Change the 'src' attribute below to your file's name (e.g., src="./my-photo.jpg").
+                        -->
+                        <img src="https://placehold.co/400x400/6366F1/FFFFFF?text=Add+Your+Photo&font=inter" alt="Leshendra Munian Professional Photo" class="rounded-full shadow-2xl w-72 h-72 md:w-96 md:h-96 object-cover">
                     </div>
-                    <div class="flex items-center text-gray-700">
-                        <!-- Phone Icon -->
-                        <svg class="w-5 h-5 mr-3 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.998-.552-1.348l-5.116-4.404a2.25 2.25 0 00-3.163.004l-2.095 1.815a11.25 11.25 0 01-5.46-5.46l1.815-2.095a2.25 2.25 0 00.004-3.163L4.99 3.602C4.65 3.261 4.168 3.05 3.652 3.05H2.25A2.25 2.25 0 000 5.25v1.5z" /></svg>
-                        <span>081 492 9265</span>
+                </div>
+            </div> <!-- End of hero-content div -->
+
+            <!-- Page Summary Links -->
+            <div id="home-summaries" class="py-20 bg-gray-100">
+                <div class="container mx-auto px-6">
+                    <h2 class="text-3xl font-bold text-center mb-12 text-gray-900">Explore My Portfolio</h2>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                        
+                        <!-- About Me Card -->
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
+                            <!-- User Icon -->
+                            <svg class="w-16 h-16 mx-auto mb-4 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" /></svg>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">About Me</h3>
+                            <p class="text-gray-600 mb-4">My background, education, and professional drive.</p>
+                            <a href="#" data-page="about" class="nav-link-button font-semibold text-indigo-600 hover:text-indigo-800 transition">Learn More &rarr;</a>
+                        </div>
+
+                        <!-- Experience Card -->
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
+                            <!-- Briefcase Icon -->
+                            <svg class="w-16 h-16 mx-auto mb-4 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.07a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18.22v-4.07m16.5 0c.321 0 .62.124.85.334m-18.3 0c-.321 0-.62-.124-.85-.334m18.3 0h-16.5m16.5 0c.321 0 .62.124.85.334M3.75 14.15v4.07a2.25 2.25 0 002.25 2.25h12A2.25 2.25 0 0020.25 18.22v-4.07m-16.5 0h16.5m-16.5 0c.321 0 .62.124.85.334M12 12.15v.008m0 0h.008m-.008 0H12m0 0V12m0 .15v.008m0 0h.008m-.008 0H12m-2.25-4.5c.321 0 .62.124.85.334M9.75 7.905v4.07a2.25 2.25 0 002.25 2.25h3a2.25 2.25 0 002.25-2.25v-4.07m-7.5 0c.321 0 .62.124.85.334M12 7.905v4.07m0-4.07c-.321 0-.62.124-.85.334m0 0c.321 0 .62.124.85.334m0 0v4.07m0-4.07c-.321 0-.62.124-.85.334m0 0c.321 0 .62.124.85.334m0 0v4.07m0-4.07c-.321 0-.62.124-.85.334m-4.5 4.07v.008" /></svg>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Experience</h3>
+                            <p class="text-gray-600 mb-4">My hands-on industry experience at Kelvin Power Station.</p>
+                            <a href="#" data-page="experience" class="nav-link-button font-semibold text-indigo-600 hover:text-indigo-800 transition">Learn More &rarr;</a>
+                        </div>
+
+                        <!-- Projects Card -->
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
+                            <!-- Lightbulb Icon -->
+                            <svg class="w-16 h-16 mx-auto mb-4 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM18 13.5l.375 1.5L18 16.5l-.375-1.5-.375.375 1.5.375 1.5-.375-.375-.375z" /></svg>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Projects</h3>
+                            <p class="text-gray-600 mb-4">My research, lab work, and project gallery.</p>
+                            <a href="#" data-page="projects" class="nav-link-button font-semibold text-indigo-600 hover:text-indigo-800 transition">Learn More &rarr;</a>
+                        </div>
+
+                        <!-- Skills Card -->
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-lg text-center transform hover:scale-105 transition duration-300">
+                            <!-- CPU Icon -->
+                            <svg class="w-16 h-16 mx-auto mb-4 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-7.5-6h7.5m-7.5 0a3 3 0 01-3-3v-1.5a3 3 0 013-3h7.5a3 3 0 013 3v1.5a3 3 0 01-3 3m-7.5 0h7.5" /></svg>
+                            <h3 class="text-2xl font-semibold text-gray-800 mb-2">Skills</h3>
+                            <p class="text-gray-600 mb-4">My technical programming and software skills.</p>
+                            <a href="#" data-page="skills" class="nav-link-button font-semibold text-indigo-600 hover:text-indigo-800 transition">Learn More &rarr;</a>
+                        </div>
                     </div>
-                    <div class="flex items-center text-gray-700">
-                        <!-- Location Icon -->
-                        <svg class="w-5 h-5 mr-3 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
-                        <span>Edenvale, South Africa</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page: About Me -->
+        <section id="about" class="page hidden py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">About Me</h2>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed text-center">
+                    I am a motivated and detail-oriented final-year Electrical and Electronic Engineering student with a strong foundation in power systems, circuit design, and control theory. I am known for being passionate, disciplined, and enthusiastic, with a strong commitment to delivering high-quality work. I am committed, with a result-driven mindset, thrive when faced with new challenges, and am seeking an entry-level engineering role to contribute to innovative projects and gain valuable hands-on industry experience.
+                </p>
+
+                <!-- Education Section -->
+                <h2 class="text-4xl font-bold text-center mt-20 mb-12 text-gray-900">Education</h2>
+                <div class="max-w-3xl mx-auto space-y-8">
+                    <!-- University Card -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg border-l-4 border-indigo-500">
+                        <h3 class="text-2xl font-semibold text-indigo-600">Bachelor of Engineering in Electrical and Electronic Engineering</h3>
+                        <p class="text-xl text-gray-700 mt-1">North-West University, Potchefstroom, South Africa</p>
+                        <p class="text-md text-gray-500 mt-2">2020 - Present (Expected Graduation: December 2025)</p>
+                    </div>
+                    <!-- High School Card -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-semibold text-gray-800">Grade 12</h3>
+                        <p class="text-xl text-gray-700 mt-1">Edenglen High School</p>
+                        <p class="text-md text-gray-500 mt-2">2015 - 2019</p>
                     </div>
                 </div>
 
-                <!-- CTA Buttons -->
-                <div class="flex space-x-4">
-                    <a href="#projects" class="bg-indigo-600 text-white py-3 px-6 rounded-lg font-semibold shadow-lg hover:bg-indigo-700 transition duration-300">View My Projects</a>
-                    <a href="#contact" class="bg-gray-200 text-gray-800 py-3 px-6 rounded-lg font-semibold hover:bg-gray-300 transition duration-300">Get in Touch</a>
+                <!-- NEW: Leadership & Extracurriculars Section -->
+                <h2 class="text-4xl font-bold text-center mt-20 mb-12 text-gray-900">Leadership & Extracurriculars</h2>
+                <div class="max-w-3xl mx-auto space-y-6">
+                    <!-- Item 1 -->
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-gray-800">SAIEE Vice-Chairperson, University Student Chapter</h3>
+                        <p class="text-gray-700 mt-2">Promoted SAIEE membership benefits and actively contributed to organizing and participating in technical workshops and student outreach initiatives.</p>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-gray-800">Demonstrator and Marker</h3>
+                        <p class="text-gray-700 mt-2">Assisted final-year students in Digital Signal Processing and evaluated assignments and tests. Also assisted third-year students in Principles of Measurements in lab work and evaluated assignments.</p>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-gray-800">High School Prefect</h3>
+                        <p class="text-gray-700 mt-2">Entrusted with leadership responsibilities and student coordination duties, contributing to the overall discipline and functioning of the school.</p>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-semibold text-gray-800">Competitive Swimming</h3>
+                        <p class="text-gray-700 mt-2">Represented my high school in interschool competitions; awarded Full Colors for three consecutive years and competed at the Eastern Gauteng provincial level.</p>
+                    </div>
                 </div>
             </div>
-            
-            <!-- Right Side: Placeholder Image -->
-            <!-- You can replace this with a professional photo of yourself -->
-            <div class="lg:w-1/2 flex justify-center">
-                <img src="https://placehold.co/400x400/6366F1/FFFFFF?text=Leshendra+M.&font=inter" alt="Leshendra Munian Professional Photo" class="rounded-full shadow-2xl w-72 h-72 md:w-96 md:h-96 object-cover">
+        </section>
+
+        <!-- Page: Work Experience (RESTORED) -->
+        <section id="experience" class="page hidden py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Work Experience</h2>
+                <div class="max-w-3xl mx-auto bg-gray-50 p-8 rounded-lg shadow-lg border-l-4 border-indigo-500">
+                    <h3 class="text-2xl font-semibold text-indigo-600">Vacation Work Student</h3>
+                    <p class="text-xl text-gray-700 mt-1 font-medium">Kelvin Power Station</p>
+                    <p class="text-md text-gray-500 mt-1">June 2023 - Feb 2024</p>
+                    
+                    <p class="text-gray-700 mt-6 mb-4">I worked on site at the power plant under the Electrical Team and the Control and Instrumentation Team. My time at Kelvin included the following responsibilities:</p>
+                    
+                    <ul class="list-disc list-inside space-y-3 text-gray-700">
+                        <li>Conducting maintenance on generating units, including replacing brush gears and ensuring the upkeep and performance of both pilot and main excitation systems.</li>
+                        <li>Performing performance analysis, troubleshooting, and resolving issues related to motor-operated valves (MOVs), motor operations, and circuit breakers.</li>
+                        <li>Maintaining and servicing power transformers to ensure optimal performance.</li>
+                        <li>Conducting performance and reliability testing on various relays, with a focus on SEL relays.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page: Projects (RESTORED) -->
+        <section id="projects" class="page hidden py-20 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Projects & Practicals</h2>
+                
+                <!-- Main Research Project -->
+                <div class="bg-gray-50 rounded-lg shadow-2xl p-8 max-w-3xl mx-auto mb-16">
+                    <div id="project-toggle-button" class="flex justify-between items-center cursor-pointer">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Research Project: Solar Golf Car with Battery-Capacitor Hybrid Technology</h3>
+                            <p class="text-md text-gray-500 mb-4">Supervisor: Prof. Rupert Gouws</p>
+                        </div>
+                        <!-- Chevron Icon -->
+                        <svg id="project-chevron" class="w-6 h-6 text-indigo-600 transform transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </div>
+
+                    <p class="text-gray-700 leading-relaxed mb-4">
+                        Designed and developed a solar-powered golf cart prototype using a $LiFePO_{4}$ battery and supercapacitor hybrid system, regulated via MPPT charge control. Implemented a fuzzy logic-based energy management system to dynamically switch power sources based on torque demand, monitored via sensors.
+                    </p>
+                    <p class="text-gray-800 font-semibold leading-relaxed">
+                        <strong>Goal:</strong> To achieve extended runtimes and improved power efficiency during high-current demanding conditions such as acceleration and hill climbing.
+                    </p>
+
+                    <!-- Collapsible Media Gallery -->
+                    <div id="project-details" class="hidden mt-8">
+                        <h4 class="text-xl font-semibold text-gray-800 mb-4">Project Media Gallery</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- 1 Video -->
+                            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                                <video class="w-full h-full object-cover" controls preload="metadata">
+                                    <!-- TODO: Change src to your video file -->
+                                    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+
+                            <!-- 3 Images -->
+                            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                                <!-- TODO: Change src to your image file -->
+                                <img src="https://placehold.co/600x400/6366F1/FFFFFF?text=Project+Image+1&font=inter" alt="Project Image 1" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                                <!-- TODO: Change src to your image file -->
+                                <img src="https://placehold.co/600x400/A5B4FC/FFFFFF?text=Project+Image+2&font=inter" alt="Project Image 2" class="w-full h-full object-cover">
+                            </div>
+                            <div class="bg-gray-100 rounded-lg overflow-hidden shadow-inner">
+                                <!-- TODO: Change src to your image file -->
+                                <img src="https://placehold.co/600x400/EDE9FE/FFFFFF?text=Project+Image+3&font=inter" alt="Project Image 3" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Practicals (MOVED HERE) -->
+                <h3 class="text-3xl font-bold text-center mt-20 mb-10 text-gray-900">Academic Practicals & Lab Work</h3>
                 <!-- 
-                TODO: Replace the placehold.co link above with a real photo. 
-                For example: <img src="./your-photo.jpg" alt="Leshendra Munian">
-                You would need to upload 'your-photo.jpg' alongside this index.html file.
+                  CHANGE: 
+                  - Removed the 'bg-white p-8' container and 'ul' list.
+                  - Replaced with a 'flex-wrap' container and styled 'span' tags
+                    to match the style of the 'Skills' page.
                 -->
+                <div class="max-w-5xl mx-auto">
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            The design and building of multistage amplifiers in electronics.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Designing various electrical and magnetic field storage mediums such as capacitors and inductors.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Characterize and performance analysis on transformers, induction motors and DC machines.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Fault detection in single and three-phase power systems.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Design, calibration and recommendation for sensors depending on the task.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Digital filtering and predictive algorithms for various input signals (videos, images, power waveforms).
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Modelling and control schemes for various DC-DC converter topologies.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Implementation of protection devices in single and three-phase power systems using electrotechnical and digital relays coupled with CTs and VTs.
+                        </span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full text-center">
+                            Designing and building power electronic systems including rectifiers, DC-DC converters and inverters.
+                        </span>
+                    </div>
+                </div>
             </div>
-        </div>
-    </header>
+        </section>
 
-    <!-- About Me Section -->
-    <section id="about" class="py-20 bg-gray-50 section-fade-in">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">About Me</h2>
-            <p class="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed text-center">
-                I am a motivated and detail-oriented final-year Electrical and Electronic Engineering student with a strong foundation in power systems, circuit design, and control theory. I am known for being passionate, disciplined, and enthusiastic, with a strong commitment to delivering high-quality work. I am committed, with a result-driven mindset, thrive when faced with new challenges, and am seeking an entry-level engineering role to contribute to innovative projects and gain valuable hands-on industry experience.
-            </p>
-        </div>
-    </section>
+        <!-- Page: Skills (RESTORED) -->
+        <section id="skills" class="page hidden py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Technical Skills</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+                    <!-- Programming Skills -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-indigo-600 mb-4">Programming</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">C/C++</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">MATLAB</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Python</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Arduino</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">STM32 CubeIDE</span>
+                        </div>
+                    </div>
 
-    <!-- Work Experience Section -->
-    <section id="experience" class="py-20 bg-white section-fade-in">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Work Experience</h2>
-            
-            <!-- Job Card -->
-            <div class="bg-gray-50 rounded-lg shadow-xl p-8 max-w-3xl mx-auto border-l-4 border-indigo-500">
-                <h3 class="text-2xl font-semibold text-indigo-600 mb-2">Vacation Work Student</h3>
-                <p class="text-xl text-gray-800 mb-1">Kelvin Power Station</p>
-                <p class="text-md text-gray-500 mb-6">June 2023 - Feb 2024</p>
+                    <!-- Simulation & Design Skills -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-indigo-600 mb-4">Simulation & Design</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Simulink</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Proteus</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">KiCAD</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">EasyEDA</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">LTspice</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Autodesk Fusion360</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Powerfactory DigSilent</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Siemens NX</span>
+                        </div>
+                    </div>
+
+                    <!-- Other Software Skills -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-indigo-600 mb-4">Other Software</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">MS Office</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">LaTeX</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">MathCAD</span>
+                            <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">SMath</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page: Contact (RESTORED) -->
+        <section id="contact" class="page hidden flex items-center justify-center py-20 bg-gray-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Get in Touch</h2>
                 
-                <p class="text-gray-700 mb-4">I worked on-site at the power plant under the Electrical Team and the Control and Instrumentation Team. My responsibilities included:</p>
-                <ul class="list-disc list-inside space-y-2 text-gray-700">
-                    <li>Conducting maintenance on generating units, including replacing brush gears and ensuring the upkeep and performance of both pilot and main excitation systems.</li>
-                    <li>Performing performance analysis, troubleshooting, and resolving issues related to motor-operated valves (MOVs), motor operations, and circuit breakers.</li>
-                    <li>Maintaining and servicing power transformers to ensure optimal performance.</li>
-                    <li>Conducting performance and reliability testing on various relays, with a focus on SEL relays.</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-20 bg-gray-50 section-fade-in">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Projects</h2>
-            
-            <!-- Main Research Project -->
-            <div class="bg-white rounded-lg shadow-2xl p-8 max-w-3xl mx-auto mb-16 transform hover:scale-105 transition duration-300">
-                <h3 class="text-2xl font-semibold text-indigo-600 mb-3">Research Project: Solar Golf Car with Battery-Capacitor Hybrid Technology</h3>
-                <p class="text-md text-gray-500 mb-4">Supervisor: Prof. Rupert Gouws</p>
-                <p class="text-gray-700 leading-relaxed mb-4">
-                    Designed and developed a solar-powered golf cart prototype using a $LiFePO_{4}$ battery and supercapacitor hybrid system, regulated via MPPT charge control. Implemented a fuzzy logic-based energy management system to dynamically switch power sources based on torque demand, monitored via sensors.
-                </p>
-                <p class="text-gray-800 font-semibold leading-relaxed">
-                    <strong>Goal:</strong> To achieve extended runtimes and improved power efficiency during high-current demanding conditions such as acceleration and hill climbing.
-                </p>
-            </div>
-
-            <h3 class="text-3xl font-bold text-center mb-10 text-gray-900">Academic Practicals & Lab Work</h3>
-            
-            <!-- Academic Practicals Grid -->
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                <!-- Practical Card -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Power Electronics Design</h4>
-                    <p class="text-gray-600">Designing and building systems including rectifiers, DC-DC converters, and inverters.</p>
-                </div>
-                <!-- Practical Card -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Power System Protection</h4>
-                    <p class="text-gray-600">Implementation of protection devices in single and three-phase power systems using relays, CTs, and VTs.</p>
-                </div>
-                <!-- Practical Card -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Control Systems</h4>
-                    <p class="text-gray-600">Modelling and control schemes for various DC-DC converter topologies.</p>
-                </div>
-                <!-- Practical Card -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Digital Signal Processing</h4>
-                    <p class="text-gray-600">Digital filtering and predictive algorithms for various input signals (videos, images, power waveforms).</p>
-                </div>
-                <!-- Practical Card -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Machine Analysis</h4>
-                    <p class="text-gray-600">Characterization and performance analysis on transformers, induction motors, and DC machines.</p>
-                </div>
-                <!-- Practical Card -->
-                <div class="bg-white p-6 rounded-lg shadow-lg">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">Electronic & Circuit Design</h4>
-                    <p class="text-gray-600">Design and building of multistage amplifiers and various electrical/magnetic field storage mediums.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="py-20 bg-white section-fade-in">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Technical Skills</h2>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-                <!-- Programming Skills -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-600 mb-4">Programming</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">C/C++</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">MATLAB</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Python</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Arduino</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">STM32 CubeIDE</span>
+                <div class="flex flex-col md:flex-row justify-center gap-12 md:gap-20 max-w-3xl mx-auto mb-16">
+                    <!-- Email -->
+                    <a href="mailto:leshenmunian@gmail.com" class="flex flex-col items-center text-gray-700 hover:text-indigo-600 transition duration-300">
+                        <svg class="w-12 h-12 mb-2 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                        <span class="text-xl font-medium">Email Me</span>
+                        <span class="text-gray-500">leshenmunian@gmail.com</span>
+                    </a>
+                    <!-- Phone -->
+                    <div class="flex flex-col items-center text-gray-700">
+                        <svg class="w-12 h-12 mb-2 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.998-.552-1.348l-5.116-4.404a2.25 2.25 0 00-3.163.004l-2.095 1.815a11.25 11.25 0 01-5.46-5.46l1.815-2.095a2.25 2.25 0 00.004-3.163L4.99 3.602C4.65 3.261 4.168 3.05 3.652 3.05H2.25A2.25 2.25 0 000 5.25v1.5z" /></svg>
+                        <span class="text-xl font-medium">Call Me</span>
+                        <span class="text-gray-500">081 492 9265</span>
                     </div>
                 </div>
 
-                <!-- Simulation & Design Skills -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-600 mb-4">Simulation & Design</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Simulink</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Proteus</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">KiCAD</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">EasyEDA</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">LTspice</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Autodesk Fusion360</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Powerfactory DigSilent</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">Siemens NX</span>
-                    </div>
-                </div>
-
-                <!-- Other Software Skills -->
-                <div>
-                    <h3 class="text-2xl font-semibold text-indigo-600 mb-4">Other Software</h3>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">MS Office</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">LaTeX</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">MathCAD</span>
-                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-4 py-2 rounded-full">SMath</span>
-                    </div>
+                <!-- Social Media Links -->
+                <h3 class="text-2xl font-semibold text-center mb-6 text-gray-900">Find Me Online</h3>
+                <div class="flex justify-center space-x-6">
+                    <!-- LinkedIn URL -->
+                    <a href="https://www.linkedin.com/in/leshendra-munian-290040377/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="text-gray-500 hover:text-indigo-600 transition duration-300">
+                        <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <!-- Professional Skills -->
-            <h2 class="text-4xl font-bold text-center mb-12 mt-20 text-gray-900">Professional Skills</h2>
-            <div class="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Project Management</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Good Communication</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Teamwork & Leadership</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Critical Thinking</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Time Management</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Adaptability</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Perseverance</span>
-                <span class="bg-gray-200 text-gray-800 text-md font-medium px-4 py-2 rounded-full">Pro-Active</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Education Section -->
-    <section id="education" class="py-20 bg-gray-50 section-fade-in">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center mb-12 text-gray-900">Education</h2>
-            <div class="max-w-3xl mx-auto space-y-8">
-                <!-- University Card -->
-                <div class="bg-white p-8 rounded-lg shadow-lg border-l-4 border-indigo-500">
-                    <h3 class="text-2xl font-semibold text-indigo-600">Bachelor of Engineering in Electrical and Electronic Engineering</h3>
-                    <p class="text-xl text-gray-700 mt-1">North-West University, Potchefstroom, South Africa</p>
-                    <p class="text-md text-gray-500 mt-2">2020 - Present (Expected Graduation: December 2025)</p>
-                </div>
-                <!-- High School Card -->
-                <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-semibold text-gray-800">Grade 12</h3>
-                    <p class="text-xl text-gray-700 mt-1">Edenglen High School</p>
-                    <p class="text-md text-gray-500 mt-2">2015 - 2019</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="py-20 bg-white section-fade-in">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-4xl font-bold text-center mb-6 text-gray-900">Get In Touch</h2>
-            <p class="text-lg text-gray-700 max-w-2xl mx-auto mb-12">
-                I'm actively seeking entry-level engineering roles and am excited to contribute to innovative projects. If you'd like to chat about my work or a potential opportunity, please feel free to reach out!
-            </p>
-
-            <!-- Contact Details -->
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-12 mb-12">
-                <!-- Email -->
-                <a href="mailto:leshenmunian@gmail.com" class="flex flex-col items-center text-gray-700 hover:text-indigo-600 transition duration-300">
-                    <svg class="w-12 h-12 mb-2 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-                    <span class="text-xl font-medium">Email Me</span>
-                    <span class="text-gray-500">leshenmunian@gmail.com</span>
-                </a>
-                <!-- Phone -->
-                <div class="flex flex-col items-center text-gray-700">
-                    <svg class="w-12 h-12 mb-2 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.998-.552-1.348l-5.116-4.404a2.25 2.25 0 00-3.163.004l-2.095 1.815a11.25 11.25 0 01-5.46-5.46l1.815-2.095a2.25 2.25 0 00.004-3.163L4.99 3.602C4.65 3.261 4.168 3.05 3.652 3.05H2.25A2.25 2.25 0 000 5.25v1.5z" /></svg>
-                    <span class="text-xl font-medium">Call Me</span>
-                    <span class="text-gray-500">081 492 9265</span>
-                </div>
-            </div>
-
-            <!-- Social Media Links -->
-            <h3 class="text-2xl font-semibold text-center mb-6 text-gray-900">Find Me Online</h3>
-            <div class="flex justify-center space-x-6">
-                <!-- TODO: Add your actual LinkedIn URL -->
-                <a href="#" aria-label="LinkedIn Profile" class="text-gray-500 hover:text-indigo-600 transition duration-300">
-                    <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                </a>
-                <!-- TODO: Add your actual GitHub URL -->
-                <a href="#" aria-label="GitHub Profile" class="text-gray-500 hover:text-indigo-600 transition duration-300">
-                    <svg class="w-10 h-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.109-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
+    </main>
+    
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-300 py-8 text-center">
         <div class="container mx-auto px-6">
+            <div class="flex flex-col sm:flex-row justify-center sm:justify-around items-center space-y-4 sm:space-y-0 mb-6">
+                <!-- Email -->
+                <a href="mailto:leshenmunian@gmail.com" class="flex items-center text-gray-400 hover:text-white transition duration-300">
+                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                    leshenmunian@gmail.com
+                </a>
+                <!-- Phone -->
+                <div class="flex items-center text-gray-400">
+                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.211-.998-.552-1.348l-5.116-4.404a2.25 2.25 0 00-3.163.004l-2.095 1.815a11.25 11.25 0 01-5.46-5.46l1.815-2.095a2.25 2.25 0 00.004-3.163L4.99 3.602C4.65 3.261 4.168 3.05 3.652 3.05H2.25A2.25 2.25 0 000 5.25v1.5z" /></svg>
+                    081 492 9265
+                </div>
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/leshendra-munian-290040377/" target="_blank" rel="noopener noreferrer" class="flex items-center text-gray-400 hover:text-white transition duration-300">
+                    <svg class="w-5 h-5 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    LinkedIn Profile
+                </a>
+            </div>
             <p>&copy; 2025 Leshendra Tony Munian. All rights reserved.</p>
         </div>
     </footer>
+
+
+    <!-- JavaScript for Page Navigation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const navBrand = document.querySelector('.nav-brand');
+            const navButtons = document.querySelectorAll('.nav-link-button');
+
+            // Project dropdown elements
+            const projectToggleButton = document.getElementById('project-toggle-button');
+            const projectDetails = document.getElementById('project-details');
+            const projectChevron = document.getElementById('project-chevron');
+
+            // Function to show a page by ID
+            function showPage(pageId) {
+                // Hide all pages
+                pages.forEach(page => {
+                    page.classList.add('hidden');
+                    page.classList.remove('page-fade-in');
+                });
+
+                // Show the requested page
+                const activePage = document.getElementById(pageId);
+                if (activePage) {
+                    activePage.classList.remove('hidden');
+                    // Add animation class
+                    activePage.classList.add('page-fade-in');
+                }
+
+                // Update active state in nav
+                navLinks.forEach(link => {
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
+                // Also handle the main 'Contact' button
+                const contactButton = document.querySelector('#nav-links a[data-page="contact"]');
+                if (pageId === 'contact') {
+                    contactButton.classList.add('active'); // You might need to define a style for this
+                } else {
+                    contactButton.classList.remove('active');
+                }
+
+
+                // Scroll to top of the page
+                window.scrollTo(0, 0);
+            }
+
+            // Combine all navigation triggers
+            const allNavTriggers = [...navLinks, navBrand, ...navButtons];
+
+            allNavTriggers.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault(); // Stop the link from adding '#' to the URL
+                    const pageId = link.dataset.page;
+                    if (pageId) {
+                        showPage(pageId);
+                    }
+                });
+            });
+
+            // Show the 'home' page by default
+            showPage('home');
+
+            // Event listener for project dropdown
+            if (projectToggleButton) {
+                projectToggleButton.addEventListener('click', () => {
+                    projectDetails.classList.toggle('hidden');
+                    // Rotate chevron
+                    if (projectDetails.classList.contains('hidden')) {
+                        projectChevron.classList.remove('rotate-180');
+                    } else {
+                        projectChevron.classList.add('rotate-180');
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
