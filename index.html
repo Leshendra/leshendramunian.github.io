@@ -62,8 +62,15 @@
             <!-- Your Name / Logo -->
             <a href="#" data-page="home" class="nav-brand text-2xl font-bold text-indigo-600 mb-4 sm:mb-0">Leshendra Munian</a>
             
-            <!-- Navigation Links -->
-            <div id="nav-links" class="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2 md:space-x-4 text-gray-700 font-medium">
+            <!-- 
+                CHANGE:
+                - Removed 'flex-col sm:flex-row' and 'space-y-2 sm:space-y-0'
+                - Added 'flex-row', 'overflow-x-auto', 'whitespace-nowrap' to create a horizontally scrolling list on mobile.
+                - Added 'space-x-4' for mobile horizontal spacing.
+                - Added 'py-2 sm:py-0' for vertical padding on mobile.
+                - Added 'w-full sm:w-auto' to make the scroll container work correctly on mobile.
+            -->
+            <div id="nav-links" class="flex flex-row items-center overflow-x-auto whitespace-nowrap space-x-4 sm:space-x-2 md:space-x-4 text-gray-700 font-medium py-2 sm:py-0 w-full sm:w-auto">
                 <a href="#" data-page="home" class="nav-link hover:text-indigo-600 transition duration-300 px-2">Home</a>
                 <a href="#" data-page="about" class="nav-link hover:text-indigo-600 transition duration-300 px-2">About</a>
                 <a href="#" data-page="experience" class="nav-link hover:text-indigo-600 transition duration-300 px-2">Experience</a>
